@@ -55,7 +55,7 @@ function isUser($u, $p) {
 		$stm->execute();
 		$result = $stm->fetchAll();
 		if(!$result) {
-			return "Could not find the user";
+			return false;
 		}
 	}
 	catch(PDOException $e) {
