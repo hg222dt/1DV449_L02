@@ -62,7 +62,7 @@ function isUser($u, $p) {
 		echo("Error creating query: " .$e->getMessage());
 		return false;
 	}
-	return false;
+	return true;
 	
 }
 
