@@ -26,6 +26,8 @@ function getMessages() {
 		echo("Error creating query: " .$e->getMessage());
 		return false;
 	}
+
+	$result = json_encode($result);
 	
 	if($result)
 		return $result;
