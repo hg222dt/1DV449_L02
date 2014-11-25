@@ -37,6 +37,7 @@ function checkUser() {
 }
 
 function isUser($u, $p) {
+
 	$db = null;
 
 	try {
@@ -62,9 +63,60 @@ function isUser($u, $p) {
 		echo("Error creating query: " .$e->getMessage());
 		return false;
 	}
+
 	return true;
 	
 }
+
+
+function userVerify($username, $inputPassword) {
+
+	$hashedPasswordOnDatabase = getUserPasswordFromDB($username);
+
+	if($hashedPasswordOnDatabase == false) {
+		return false;
+	}
+
+	$verified = password_verify($inputPassword, $hashedPasswordOnDatabase);
+
+	if($verified) {
+		return true;
+	}
+	return false;
+}
+
+function getUserPasswordFromDB($username) {
+	$db = null;
+
+	try {
+		$db = new PDO("sqlite:db.db");
+		$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	}
+	catch(PDOEception $e) {
+		die("Del -> " .$e->getMessage());
+	}
+	$q = "SELECT password FROM users WHERE username = '$username'";
+
+	$result;
+	$stm;
+	try {
+		$stm = $db->prepare($q);
+		$stm->execute();
+		$result = $stm->fetchAll();
+
+		if(empty($result)) {
+			return false;
+		}
+
+	}
+	catch(PDOException $e) {
+		echo("Error creating query: " .$e->getMessage());
+		return false;
+	}
+
+	return $result[0]['password'];
+}
+
 
 function getUser($user) {
 	$db = null;

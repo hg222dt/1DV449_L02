@@ -5,8 +5,12 @@ require_once("sec.php");
 $u = $_POST['username'];
 $p = $_POST['password'];
 
+
+//addHash($p);
+
 // Check if user is OK
-if(isset($u) && isset($p) && isUser($u, $p)) {
+if(isset($u) && isset($p) && userVerify($u, $p)) {
+
 	// set the session
 	sec_session_start();
 	$_SESSION['username'] = $u;

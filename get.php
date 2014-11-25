@@ -2,6 +2,7 @@
 
 // get the specific message
 function getMessages() {
+
 	$db = null;
 
 	try {
