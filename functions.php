@@ -15,7 +15,12 @@ if(isset($_GET['function'])) {
     elseif($_GET['function'] == 'add') {
 	    $name = $_GET["name"];
 		$message = $_GET["message"];
-		addToDB($message, $name);
+		if(strcmp($_GET['CSRFToken'], $_SESSION['csrfToken'])) {
+			addToDB($message, $name);
+		} else {
+			echo "Det funkade inte";
+			die();
+		}
 		header("Location: test/debug.php");
     }
     elseif($_GET['function'] == 'getMessages') {
