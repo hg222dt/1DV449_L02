@@ -37,8 +37,11 @@ if(isset($u) && isset($p)) {
 if(isset($_SESSION['userLoggedIn']) && $_SESSION['userLoggedIn']) {
 	header("Location: mess.php"); 
 } else {
-	header('HTTP/1.1 401 Unauthorized');
-	die("could not call");
+
+	header('Location: index.php');
+
+	//header('HTTP/1.1 401 Unauthorized');
+	//die("could not call");
 }
 
 

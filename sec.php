@@ -20,18 +20,20 @@ function checkUser() {
 		sec_session_start();
 	}
 
-	if(!isset($_SESSION["username"])) {header('HTTP/1.1 401 Unauthorized'); die();}
+	if(!isset($_SESSION["username"])) {
+		header('Location: index.php');
+	}
 
 	$user = getUser($_SESSION["username"]);
 	$un = $user[0]["username"];
 
 	if(isset($_SESSION['login_string'])) {
 		if($_SESSION['login_string'] !== hash('sha512', "123456" + $un) ) {
-			header('HTTP/1.1 401 Unauthorized'); die();
+			header('Location: index.php');
 		}
 	}
 	else {
-		header('HTTP/1.1 401 Unauthorized'); die();
+		header('Location: index.php');
 	}
 	return true;
 }
