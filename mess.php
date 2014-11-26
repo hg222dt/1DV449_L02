@@ -1,7 +1,9 @@
 <?php
 
 require_once("get.php");
-
+require_once("sec.php");
+sec_session_start();
+/*
 class Mess {
 
     public $csrfToken;
@@ -10,10 +12,14 @@ class Mess {
     function __construct() {
         $this->csrfToken = $_SESSION['csrfToken'];
     }
-
+  
     function showMessPage() {
 
-        $ret = '<!DOCTYPE html>
+
+*/
+
+?>
+        <!DOCTYPE html>
             <html lang="sv">
               <head>
                 <meta charset="utf-8">
@@ -166,7 +172,7 @@ class Mess {
                             Message: <br />
                             <textarea name="mess" id="inputText" cols="55" rows="6"></textarea>
                             <input class="btn btn-primary" type="button" id="buttonSend" value="Write your message" />
-                            <input type="hidden" name="CSRFToken" value=' . $this->csrfToken . '>
+                            <input type="hidden" id="csrfToken" value= <?php echo($_SESSION['csrfToken']) ?> >
                             <span class="clear">&nbsp;</span>
 
                         </div>
@@ -181,12 +187,4 @@ class Mess {
             			</script>
             			<script src="js/bootstrap.js"></script>
             	</body>
-            	</html>
-        ';
-
-        return $ret;
-
-    }
-
-
-}
+            </html>
