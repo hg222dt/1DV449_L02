@@ -20,6 +20,12 @@ function checkUser() {
 		sec_session_start();
 	}
 
+	if (isset($_SESSION['userAgent']) && $_SESSION['userAgent'] !== $_SERVER["HTTP_USER_AGENT"]) {
+	
+		header("Location: index.php"); 
+	
+	}
+
 	if(!isset($_SESSION["username"])) {
 		header('Location: index.php');
 	}

@@ -20,6 +20,7 @@ if(isset($u) && isset($p)) {
 		$_SESSION['login_string'] = hash('sha512', "123456" +$u);
 		$_SESSION['csrfToken'] = base64_encode( openssl_random_pseudo_bytes(32));
 		$_SESSION['userLoggedIn'] = true;
+		$_SESSION['userAgent'] = $_SERVER['HTTP_USER_AGENT'];
 		
 		header("Location: mess.php"); 
 	} else {
@@ -30,20 +31,21 @@ if(isset($u) && isset($p)) {
 	//header('HTTP/1.1 401 Unauthorized');
 	//die("could not call");
 	}
-} 
-
-
-
-if(isset($_SESSION['userLoggedIn']) && $_SESSION['userLoggedIn']) {
-	header("Location: mess.php"); 
-} else {
-
-	header('Location: index.php');
-
-	//header('HTTP/1.1 401 Unauthorized');
-	//die("could not call");
 }
 
+/*
+if(isset($_SESSION['userLoggedIn']) && $_SESSION['userLoggedIn']) {
+
+	if ($_SESSION['userAgent'] === $_SERVER["HTTP_USER_AGENT"]) {
+	
+		header("Location: mess.php"); 
+	
+	} else {
+
+		header('Location: index.php');
+	}
+}
+*/
 
 /*
 $mess = new Mess();
