@@ -16,11 +16,22 @@ function addToDB($message, $user) {
 	
 	$q = "INSERT INTO messages (message, name) VALUES('$message', '$user')";
 	
+	$result;
+	$stm;
 	try {
-		if(!$db->query($q)) {}
+		$stm = $db->prepare($q);
+		$stm->execute();
+		$result = $stm->fetchAll();
+		if(!$result) {
+			return "Could not send message";
+		}
 	}
-	catch(PDOException $e) {}
-	
+	catch(PDOException $e) {
+		echo("Error creating query: " .$e->getMessage());
+		return false;
+	}
+
+
 	$q = "SELECT * FROM users WHERE username = '" .$user ."'";
 	$result;
 	$stm;
