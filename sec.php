@@ -20,9 +20,9 @@ function checkUser() {
 		sec_session_start();
 	}
 
-	if(!isset($_SESSION["user"])) {header('HTTP/1.1 401 Unauthorized'); die();}
+	if(!isset($_SESSION["username"])) {header('HTTP/1.1 401 Unauthorized'); die();}
 
-	$user = getUser($_SESSION["user"]);
+	$user = getUser($_SESSION["username"]);
 	$un = $user[0]["username"];
 
 	if(isset($_SESSION['login_string'])) {
@@ -147,10 +147,10 @@ function getUser($user) {
 
 function logout() {
 
-	if(!session_id()) {
-		sec_session_start();
-	}
-	session_end();
+	unset($_SESSION['username']);
+    unset($_SESSION['csrfToken']);
+    unset($_SESSION['userLoggedIn']);
+    session_destroy();
 	header('Location: index.php');
 }
 

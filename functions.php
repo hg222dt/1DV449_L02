@@ -18,21 +18,12 @@ if(isset($_GET['function'])) {
 		$message = $_GET["message"];
 		$csrfTokenForm = trim($_GET["csrfToken"]);
 
-
-
-		//Stippa av strängen med olika taggar. strip_tags o trim
-
 		$name = strip_tags($name);
 		$message = strip_tags($message);
 
 		$csrfTokenSession = trim($_SESSION["csrfToken"]);
 
-		//if($csrfTokenSession == null) {
-		//if($csrfTokenForm == "hejhej") {
 		if(strcmp($csrfTokenSession, $csrfTokenForm) === 0) {
-		//if(strcmp($_SESSION['csrfToken'], $GET['CSRFToken']) !== 0) {
-		//if(strcmp($csrfTokenSession, $csrfTokenForm) === 0) {
-		//if($csrfTokenSession == $csrfTokenForm) {
 			addToDB($message, $name);
 		} else {
 			die();

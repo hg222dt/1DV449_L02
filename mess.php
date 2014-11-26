@@ -3,20 +3,10 @@
 require_once("get.php");
 require_once("sec.php");
 sec_session_start();
-/*
-class Mess {
-
-    public $csrfToken;
 
 
-    function __construct() {
-        $this->csrfToken = $_SESSION['csrfToken'];
-    }
-  
-    function showMessPage() {
+checkUser();
 
-
-*/
 
 ?>
         <!DOCTYPE html>
@@ -163,8 +153,9 @@ class Mess {
                     <div id="container">
                         
                         <div id="messageboard">
-                            <input class="btn btn-danger" type="button" id="buttonLogout" value="Logout" style="margin-bottom: 20px;" />
-                            
+                            <form action="logout.php" method="POST">
+                                <input id="logout" class="btn btn-danger" name="logout" type="submit" value="Logout" style="margin-bottom: 20px;"/>
+                            </form>
                             <div id="messagearea"></div>
                             
                             <p id="numberOfMess">Antal meddelanden: <span id="nrOfMessages">0</span></p>
