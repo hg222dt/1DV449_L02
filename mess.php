@@ -21,16 +21,13 @@ checkUser();
                 <link rel="apple-touch-icon" sizes="120x120" href="touch-icon-iphone-retina.png">
                 <link rel="apple-touch-icon" sizes="152x152" href="touch-icon-ipad-retina.png">
                 <link rel="shortcut icon" href="pic/favicon.png">
-                
+               
                 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />
-
                 
                 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
                 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-                <!--
-                <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
-            	<script type="text/javascript" src="js/jquery.js"></script>
--->
+
+
             	<script type="text/javascript" src="js/longpoll.js"></script>
 
             	<style type="text/css">
@@ -146,7 +143,7 @@ checkUser();
             	
             	</style>
             	
-            	<!-- <script src="js/jquery.js"></script> -->
+            	
             	<script src="MessageBoard.js"></script>
             	<script src="js/script.js"></script>
             	<script src="Message.js"></script>
@@ -182,6 +179,6 @@ checkUser();
             					MessageBoard.getMessages();
             				});
             			</script>
-            			<!-- <script src="js/bootstrap.js"></script> -->
+
             	</body>
             </html>

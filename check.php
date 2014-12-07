@@ -1,11 +1,10 @@
 <?php
 require_once("sec.php");
+require_once("password_compat-master/lib/password.php");
 
 // check tha POST parameters
 $u = $_POST['username'];
 $p = $_POST['password'];
-
-
 
 
 // Check if user is OK
