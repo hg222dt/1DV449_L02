@@ -15,7 +15,6 @@ function Message(message, date){
     this.setDate = function(_date) {
         date = date;
     }
-
 }
 
 Message.prototype.toString = function(){
@@ -48,6 +47,7 @@ var MessageBoard = {
 		    MessageBoard.nameField = document.getElementById("inputName");
             MessageBoard.messageArea = document.getElementById("messagearea");
             MessageBoard.csrfToken = document.getElementById("csrfToken");
+            MessageBoard.highestMessageId = null;
 
             // Add eventhandlers    
             document.getElementById("inputText").onfocus = function(e){ this.className = "focus"; }
@@ -65,6 +65,14 @@ var MessageBoard = {
                                                 }
     
     },
+    setHighestMessageId:function(newId) {
+        if(MessageBoard.highestMessageId == null) {
+            MessageBoard.highestMessageId = newId;
+            //console.log("MessageBoard.highestMessageId : " + MessageBoard.highestMessageId);
+        } else if (newId > MessageBoard.highestMessageId) {
+            MessageBoard.highestMessageId = newId;
+        }
+    },
     getMessages:function() {
         $.ajax({
 			type: "GET",
@@ -79,15 +87,70 @@ var MessageBoard = {
 				var obj = data[mess];
 			    var text = obj.name +" said:\n" +obj.message;
 				var mess = new Message(text, new Date());
-                var messageID = MessageBoard.messages.push(mess)-1;
+                var clientMessageID = MessageBoard.messages.push(mess)-1;
+                var dbMessageId = obj.serial;
+
+                MessageBoard.setHighestMessageId(parseInt(dbMessageId));
     
-                MessageBoard.renderMessage(messageID);
+                MessageBoard.renderMessage(clientMessageID);
 				
 			}
 			document.getElementById("nrOfMessages").innerHTML = MessageBoard.messages.length;
 			
+
+            MessageBoard.pollDatabase();
 		});
 	
+        
+
+    },
+    pollDatabase:function() {
+        
+        console.log("highestMessageId: " + MessageBoard.highestMessageId);
+
+        $.ajax({
+            type: "GET",
+            url: "functions.php",
+            data: {'function': "pollDatabase", 'highestMessageId': MessageBoard.highestMessageId},
+
+            async: true,
+            cache: false,
+            timeout:50000,
+
+            success: function(data){ 
+
+            data = JSON.parse(data);
+
+  
+                for(var mess in data) {
+                    var obj = data[mess];
+                    var text = obj.name +" said:\n" +obj.message;
+                    var mess = new Message(text, new Date());
+                    var clientMessageID = MessageBoard.messages.push(mess)-1;
+                    var dbMessageId = obj.serial;
+
+                    MessageBoard.setHighestMessageId(dbMessageId);
+        
+                    MessageBoard.renderMessage(clientMessageID);
+                    
+                }
+                
+                document.getElementById("nrOfMessages").innerHTML = MessageBoard.messages.length;                
+
+                console.log("data: " + data);
+
+                setTimeout(
+                    function(){ MessageBoard.pollDatabase() },
+                    1000
+                );
+
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown){
+                setTimeout(
+                    MessageBoard.pollDatabase(),
+                    5000);
+            }
+        });
 
     },
     sendMessage:function(){
@@ -100,7 +163,7 @@ var MessageBoard = {
 		  	url: "functions.php",
 		  	data: {function: "add", name: MessageBoard.nameField.value, message:MessageBoard.textField.value, csrfToken: MessageBoard.csrfToken.value}
 		}).done(function(data) {
-		  alert("Your message is saved! Reload the page for watching it");
+
 		});
     
     },
@@ -125,7 +188,7 @@ var MessageBoard = {
         aTag.href="#";
         aTag.onclick = function(){
 			MessageBoard.showTime(messageID);
-			return false;			
+			return false;
 		}
 
         var imgClock = document.createElement("div");
@@ -152,7 +215,10 @@ var MessageBoard = {
 
         div.appendChild(spanClear);        
         
-        MessageBoard.messageArea.appendChild(div);       
+//        MessageBoard.messageArea.appendChild(div);
+
+        MessageBoard.messageArea.insertBefore(div, MessageBoard.messageArea.firstChild);
+
     },
     removeMessage: function(messageID){
 		if(window.confirm("Vill du verkligen radera meddelandet?")){

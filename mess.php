@@ -23,8 +23,7 @@ checkUser();
                 <link rel="shortcut icon" href="pic/favicon.png">
             
                 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />   
-                <!-- <link rel="stylesheet" type="text/css" href="css/bootstrap.css" /> -->
-                
+
             	<style type="text/css">
             	
             body{
@@ -157,8 +156,6 @@ checkUser();
                 
             	<title>Messy Labbage</title>
               </head>
-            	  
-            	  	<!-- <body background="http://www.lockley.net/backgds/big_leo_minor.jpg">        -->
 
                     <div id="container">
 
@@ -182,10 +179,7 @@ checkUser();
 
                     </div>
 
-                    
                     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-                    <!-- <script type="text/javascript" src="js/jquery.js"></script> -->
-
                     <script src="MessageBoard.js"></script>
                     <script src="Message.js"></script>
 
@@ -196,6 +190,6 @@ checkUser();
             				});
             			</script>
                         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-            			<!-- <script src="js/bootstrap.js"></script> -->
+
             	</body>
             </html>

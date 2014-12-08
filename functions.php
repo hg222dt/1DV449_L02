@@ -33,4 +33,7 @@ if(isset($_GET['function'])) {
     elseif($_GET['function'] == 'getMessages') {
   	   	echo(getMessages());
     }
+    elseif($_GET['function'] == 'pollDatabase') {
+    	echo(pollDatabase($_GET['highestMessageId']));
+    }
 }

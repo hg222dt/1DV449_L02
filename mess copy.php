@@ -180,7 +180,7 @@ checkUser();
             	</style>
             	
             	
-            	<script src="MessageBoard.js"></script>
+            	<script src="MessageBoardMin.js"></script>
             	<script src="js/script.js"></script>
             	<script src="Message.js"></script>
                 
