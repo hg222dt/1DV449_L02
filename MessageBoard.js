@@ -1,4 +1,4 @@
-/*function Message(message, date){
+function Message(message, date){
 
     this.getText = function() {
         return message;
@@ -30,7 +30,7 @@ Message.prototype.getHTMLText = function() {
 Message.prototype.getDateText = function() {
     return this.getDate().toLocaleTimeString();
 }
-*/
+
 
 
 
@@ -127,17 +127,11 @@ var MessageBoard = {
 			MessageBoard.showTime(messageID);
 			return false;			
 		}
-        
-        
-        var imgClock = document.createElement("img");
-        imgClock.src="pic/clock.png";
-        imgClock.alt="Show creation time";
-        
-/*
+
         var imgClock = document.createElement("div");
         imgClock.className="clockImage";
         imgClock.alt="Show creation time";
-*/
+
 
         aTag.appendChild(imgClock);
         div.appendChild(aTag);

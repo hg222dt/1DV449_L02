@@ -21,25 +21,18 @@ checkUser();
                 <link rel="apple-touch-icon" sizes="120x120" href="touch-icon-iphone-retina.png">
                 <link rel="apple-touch-icon" sizes="152x152" href="touch-icon-ipad-retina.png">
                 <link rel="shortcut icon" href="pic/favicon.png">
-   <!--            
-                <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />
+            
+                <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />   
+                <!-- <link rel="stylesheet" type="text/css" href="css/bootstrap.css" /> -->
                 
-                <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-                <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
--->            
-                <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
-            	
-
             	<style type="text/css">
             	
-            	body{
+            body{
                 margin:0;
                 padding:0;
                 
                 background-color:#C3D9FF;
-                background-image:url(pic/logo.png);
-                background-repeat:no-repeat;
-                background-position:center top;
+
                 height:4000px;
                 padding-top:200px;
                 
@@ -68,8 +61,6 @@ checkUser();
                 font-size:small;
                 color:Gray;
             }
-
-            html {background:url(pic/b.jpg);}
 
             .message {
                 width:590px;
@@ -135,6 +126,25 @@ checkUser();
 
             }
 
+            .logoImage {
+                background: url(pic/result.png);
+                background-position: -0px -0px;
+                width: 651px; 
+                height: 257px;
+                top:0;
+                margin-left: auto;
+                margin-right: auto;
+                
+            }
+
+            .clockImage {
+                background: url(pic/result.png);
+                background-position: -0px -267px; 
+                width: 24px; 
+                height: 24px;
+                float: right;
+            }
+
 
             .debug {
                 
@@ -148,9 +158,11 @@ checkUser();
             	<title>Messy Labbage</title>
               </head>
             	  
-            	  	<body background="http://www.lockley.net/backgds/big_leo_minor.jpg">        
+            	  	<!-- <body background="http://www.lockley.net/backgds/big_leo_minor.jpg">        -->
 
                     <div id="container">
+
+                        <div class="logoImage"></div>
                         
                         <div id="messageboard">
                             <form action="logout.php" method="POST">
@@ -169,11 +181,12 @@ checkUser();
                         </div>
 
                     </div>
+
                     
-                    <script type="text/javascript" src="js/jquery.js"></script>
-                    <script type="text/javascript" src="js/longpoll.js"></script>
+                    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+                    <!-- <script type="text/javascript" src="js/jquery.js"></script> -->
+
                     <script src="MessageBoard.js"></script>
-                    <script src="js/script.js"></script>
                     <script src="Message.js"></script>
 
                     <!-- This script is running to get the messages -->
@@ -182,6 +195,7 @@ checkUser();
             					MessageBoard.getMessages();
             				});
             			</script>
-            			<script src="js/bootstrap.js"></script>
+                        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+            			<!-- <script src="js/bootstrap.js"></script> -->
             	</body>
             </html>

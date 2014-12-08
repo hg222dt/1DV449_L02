@@ -1,4 +1,4 @@
-function Message(message, date){
+/*function Message(message, date){
 
     this.getText = function() {
         return message;
@@ -30,3 +30,4 @@ Message.prototype.getHTMLText = function() {
 Message.prototype.getDateText = function() {
     return this.getDate().toLocaleTimeString();
 }
+*/
