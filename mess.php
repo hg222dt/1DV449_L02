@@ -28,11 +28,7 @@ checkUser();
                 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 -->            
                 <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
-            	<script type="text/javascript" src="js/jquery.js"></script>
-
-
-
-            	<script type="text/javascript" src="js/longpoll.js"></script>
+            	
 
             	<style type="text/css">
             	
@@ -146,11 +142,8 @@ checkUser();
             }
             	
             	</style>
+
             	
-            	
-            	<script src="MessageBoard.js"></script>
-            	<script src="js/script.js"></script>
-            	<script src="Message.js"></script>
                 
             	<title>Messy Labbage</title>
               </head>
@@ -177,6 +170,12 @@ checkUser();
 
                     </div>
                     
+                    <script type="text/javascript" src="js/jquery.js"></script>
+                    <script type="text/javascript" src="js/longpoll.js"></script>
+                    <script src="MessageBoard.js"></script>
+                    <script src="js/script.js"></script>
+                    <script src="Message.js"></script>
+
                     <!-- This script is running to get the messages -->
             			<script>
             				$(document).ready(function() {
