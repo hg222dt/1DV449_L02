@@ -63,6 +63,8 @@ var MessageBoard = {
                                                         return false;
                                                     }
                                                 }
+
+            MessageBoard.getMessages();
     
     },
     setHighestMessageId:function(newId) {
