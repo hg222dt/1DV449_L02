@@ -107,8 +107,6 @@ var MessageBoard = {
 
     },
     pollDatabase:function() {
-        
-        console.log("highestMessageId: " + MessageBoard.highestMessageId);
 
         $.ajax({
             type: "GET",
@@ -165,7 +163,7 @@ var MessageBoard = {
 		  	url: "functions.php",
 		  	data: {function: "add", name: MessageBoard.nameField.value, message:MessageBoard.textField.value, csrfToken: MessageBoard.csrfToken.value}
 		}).done(function(data) {
-
+            console.log(data);
 		});
     
     },
