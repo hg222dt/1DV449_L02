@@ -114,12 +114,21 @@ Medel: 0,608 s
 
 ##Del 3 - Long-polling
 
-Genom att köra long-polling (XMLHttpRequest) kan vi med korta intervall från klienten fråga servern om det finns något nytt meddelande på databasen. Detta gör att vi asynkromt kan ladda ner medelande till vår webb-app, och samtidigt underlätta för användaren så att denne inte behöver sitta och ladda om sidan för att se om ett nytt meddelande har kommit.
-Implementationen funkar som så, att klienten vid en första laddning laddar, alla meddelanden som finns på servern, men efter det hela tiden gör en förfrågan varje sekund mot servern, för att få reda på om det är finns nyare meddelanden på servern, än de meddeladen som klienten redan har. Om så är fallet, skickas detta från servern till klienten, nytt html-objekt för meddelandet renderas för att sedan tryckas in i sidans DOM. Nu har sidan uppdaterats med ett nyinkommet meddelande. Efter detta fortsätter förfrågningar att göras mot servern.
+I grunden går detta ut på att låta servern, under en viss tidsrymd, göra anrop mot databasen, för att returnera eventuella nyinkomna meddelanden. Efter loopen på servern, görs en ny förfrågan mot servern för att sefortästta kolla efter meddelanden.
 
-Fördelen med detta är att det var en relativt enkel implementation att göra, och resultatet gör att man får en utåt sett smidig app, som nästan direkt uppdateras på andra klienter.
+I min get.php loopar jag min databasförfrågan för att få reda på om
+nya meddelanden har inkommit till databasen. Loopen körs i 20 sekunder
+under förutsättning att inget nytt meddelande returneras (med en implementerad sleep på 3 sekunder). Om inget nytt
+meddelande returneras på 20 sekunder,returnerar php-scriptet “false”
+till klienten, som i sin ajax-metod för hämtning av meddelanden,
+anropar sig själv rekursivt, och prosessen körs igen. Om ett nytt
+meddelande inkommer till databasen under 20-sekunders-loopen, så
+returneras meddelandet till klienten, och ajax-metoden gör ännu ett
+rekursivt anrop. osv.
 
-Nackdelen är att det är resurskrävande för både klient och server att hela tiden göra detta arbete. Att klienten hela tiden arbetar med att göra förfrågningar mot servern kräver ett ständigt arbete, trots att det inte kanske inte finns något meddelande som behöver hämtas. Detsamma gäller serverns resurs-behov, då en connection uppehålls varje gång ett sådant anrop görs.
+Fördelen med detta är att det var en relativt enkel implementation att göra, och resultatet gör att man får en utåt sett smidig app, som nästan direkt uppdateras på andra klienter, istället för att användaren själv ska behöva uppdatera sin klient för att se om nya meddelanden inkommit.
+
+Nackdelen är delvis att det är resurskrävande för server att hela tiden göra detta arbete, då en connection uppehålls varje gång ett sådant anrop görs, vilket kräver en del av kapaciteten från servern. Detta resursbehov multipliceras med antalet användaren, vilket gör den ganska krävande vid större användarbaser.
 
 
 
