@@ -6,6 +6,8 @@ require_once("password_compat-master/lib/password.php");
 $u = $_POST['username'];
 $p = $_POST['password'];
 
+$filename = "csrftoken.txt";
+
 
 // Check if user is OK
 if(isset($u) && isset($p)) {

@@ -108,6 +108,8 @@ var MessageBoard = {
     },
     pollDatabase:function() {
 
+        console.log("polling");
+
         $.ajax({
             type: "GET",
             url: "functions.php",
@@ -119,30 +121,33 @@ var MessageBoard = {
 
             success: function(data){ 
 
-            data = JSON.parse(data);
+                if(data != false) {
 
-  
-                for(var mess in data) {
-                    var obj = data[mess];
-                    var text = obj.name +" said:\n" +obj.message;
-                    var mess = new Message(text, new Date());
-                    var clientMessageID = MessageBoard.messages.push(mess)-1;
-                    var dbMessageId = obj.serial;
-
-                    MessageBoard.setHighestMessageId(dbMessageId);
-        
-                    MessageBoard.renderMessage(clientMessageID);
-                    
-                }
+                    data = JSON.parse(data);
                 
-                document.getElementById("nrOfMessages").innerHTML = MessageBoard.messages.length;                
+                    for(var mess in data) {
+                        var obj = data[mess];
+                        var text = obj.name +" said:\n" +obj.message;
+                        var mess = new Message(text, new Date());
+                        var clientMessageID = MessageBoard.messages.push(mess)-1;
+                        var dbMessageId = obj.serial;
 
-                console.log("data: " + data);
+                        MessageBoard.setHighestMessageId(dbMessageId);
+            
+                        MessageBoard.renderMessage(clientMessageID);
+                        
+                    }
+                    
+                    document.getElementById("nrOfMessages").innerHTML = MessageBoard.messages.length;                
+
+                    console.log("data: " + data);
+                }
 
                 setTimeout(
                     function(){ MessageBoard.pollDatabase() },
                     1000
                 );
+
 
             },
             error: function(XMLHttpRequest, textStatus, errorThrown){
@@ -157,14 +162,35 @@ var MessageBoard = {
 
         if(MessageBoard.textField.value == "") return;
 
+/*
         // Make call to ajax
         $.ajax({
 			type: "GET",
-		  	url: "functions.php",
+		  	url: "post2.php",
 		  	data: {function: "add", name: MessageBoard.nameField.value, message:MessageBoard.textField.value, csrfToken: MessageBoard.csrfToken.value}
 		}).done(function(data) {
+
             console.log(data);
 		});
+
+        */
+
+        $.ajax({
+            type: "GET",
+            url: "post.php",
+            data: {function: "add", name: MessageBoard.nameField.value, message:MessageBoard.textField.value, csrfToken: MessageBoard.csrfToken.value},
+            async: true,
+            cache: false,
+            timeout:50000,
+
+            success: function(data){ 
+                console.log("message sent: " + data);
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown){
+               console.log("error");
+            
+            }
+        });
     
     },
     renderMessages: function(){
@@ -213,9 +239,7 @@ var MessageBoard = {
         var spanClear = document.createElement("span");
         spanClear.className = "clear";
 
-        div.appendChild(spanClear);        
-        
-//        MessageBoard.messageArea.appendChild(div);
+        div.appendChild(spanClear);
 
         MessageBoard.messageArea.insertBefore(div, MessageBoard.messageArea.firstChild);
 
